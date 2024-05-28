@@ -5,9 +5,9 @@ dotenv.config();
 
 export default new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST || 'db',
+  host: process.env.DB_HOST || 'eda_db',
   port: Number(process.env.DB_PORT) || 5432,
-  database: process.env.DB_USERNAME || 'permissao',
+  database: process.env.DB_USERNAME || 'eda',
   username: process.env.DB_PASSWORD || 'pguser',
   password: process.env.DB_DATABASE || 'pgpass',
   logging: process.env.DB_LOGGING === 'true',

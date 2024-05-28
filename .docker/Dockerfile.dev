@@ -2,6 +2,6 @@ FROM node:18.19.0-alpine3.19
 # Instalação do cliente Redis
 RUN apk --no-cache add redis
 RUN touch /home/node/.bashrc | echo "PS1='\w\$ '" >> /home/node/.bashrc
-RUN npm config set cache /home/node/app/.npm-cache --globa
+RUN npm config set cache /home/node/eda_app/.npm-cache --globa
 USER node
-WORKDIR /home/node/app
+WORKDIR /home/node/eda_app

@@ -3,5 +3,5 @@ services:
   eda_app:
 
     volumes:
-      - ../:/home/node/app:cached
+      - ../:/home/node/eda_app:cached
  

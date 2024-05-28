@@ -5,7 +5,7 @@
 		"docker-compose.yml"
 	],
 	"service": "app",
-	"workspaceFolder": "/home/node/app",
+	"workspaceFolder": "/home/node/eda_app",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {

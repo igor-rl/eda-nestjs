@@ -28,6 +28,7 @@ export class UserPermissionCreatedConsumer {
     allowNonJsonMessages: true,
   })
   async execute({ payload }: UserPermissionCreatedConsumerProps) {
+    console.log(payload);
     if (payload?.api_name !== 'EX_API_EXAMPLE') return;
     const user_permission_input = new CreateUserPermissionInput({
       id_user_permission: payload?.id_user_permission,
