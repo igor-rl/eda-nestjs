@@ -1,0 +1,37 @@
+{
+	"name": "EDA - NestJS",
+	"dockerComposeFile": [
+		"../.docker/docker-compose.dev.yml",
+		"docker-compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/home/node/app",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"plugins": "git git-flow F-Sy-H zsh-autosuggestions zsh-completions",
+			"omzPlugins": "https://github.com/z-shell/F-Sy-H https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions"
+		},
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"wmaurer.change-case",
+				"vivaxy.vscode-conventional-commits",
+				"pranaygp.vscode-css-peek",
+				"dbaeumer.vscode-eslint",
+				"mhutchie.git-graph",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"firsttris.vscode-jest-runner",
+				"MS-CEINTL.vscode-language-pack-pt-BR",
+				"esbenp.prettier-vscode",
+				"humao.rest-client",
+				"redhat.vscode-yaml",
+				"PKief.material-icon-theme",
+				"Orta.vscode-jest"
+			]
+		}
+	}
+}

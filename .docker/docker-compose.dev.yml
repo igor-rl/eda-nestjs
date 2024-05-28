@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  eda_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ./.docker/start.sh
+    ports:
+      - 3000:3000
+    volumes:
+      - ../:/home/node/app
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      filebeat_collector: true
+  
+  eda_db:
+    image: postgres
+    restart: always
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      POSTGRES_DB: eda
+    volumes:
+      - ../.docker/db/postgres/data:/var/lib/postgresql/data
+
+  eda_rabbitmq:
+    build: ./rabbitmq
+    ports:
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin

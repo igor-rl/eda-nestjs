@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  eda_app:
+
+    volumes:
+      - ../:/home/node/app:cached
+ 
