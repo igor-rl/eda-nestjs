@@ -3,10 +3,10 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { CONFIG_SCHEMA_TYPE } from '../config-module/config.module';
 import { UserPermissionModel } from '../../core/user-permission/infra/db/typeorm/user-permission.model';
 import { ContractModel } from '../../core/contrato/infra/db/typeorm/contract.model';
-import { Migrations1716918780268 } from '../../migrations/1716918780268-migrations';
+import { Migrations1717527592514 } from '../../migrations/1717527592514-migrations';
 
 export const API_ENTITIES = [UserPermissionModel, ContractModel];
-export const API_MIGRATIONS = [Migrations1716918780268];
+export const API_MIGRATIONS = [Migrations1717527592514];
 
 export const getTypeOrmConfig = async (
   configService: ConfigService<CONFIG_SCHEMA_TYPE>,

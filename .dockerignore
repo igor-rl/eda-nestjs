@@ -1,13 +1,12 @@
 .devcontainer/
+.docker/
 .git/
 .github/
-.docker/db/
-.docker/filebeatdata/
-.docker/elk/
-.docker/rabbitmq/
-.docker/.gitignore
 .history/
+.k8s/
 coverage/
+.etc/
+test/
 dist/
 envs/
 node_modules/
