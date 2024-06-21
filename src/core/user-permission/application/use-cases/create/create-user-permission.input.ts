@@ -11,7 +11,7 @@ export type CreateUserPermissionInputConstructorProps = {
   id_contract: string;
   id_user: string;
   id_permission: string;
-  api_name: string;
+  modulo_name: string;
 };
 
 export class CreateUserPermissionInput {
@@ -36,7 +36,7 @@ export class CreateUserPermissionInput {
 
   @IsString()
   @IsNotEmpty()
-  api_name: string;
+  modulo_name: string;
 
   constructor(props?: CreateUserPermissionInputConstructorProps) {
     if (!props) return;
@@ -44,7 +44,7 @@ export class CreateUserPermissionInput {
     this.id_contract = props.id_contract;
     this.id_user = props.id_user;
     this.id_permission = props.id_permission;
-    this.api_name = props.api_name;
+    this.modulo_name = props.modulo_name;
   }
 }
 

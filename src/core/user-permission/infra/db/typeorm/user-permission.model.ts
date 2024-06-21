@@ -13,7 +13,7 @@ export interface IUserPermissionModel {
   id_contract: string;
   id_user: string;
   id_permission: string;
-  api_name: string;
+  modulo_name: string;
 }
 
 @Entity({ name: 'user-permission' })
@@ -34,8 +34,8 @@ export class UserPermissionModel implements IUserPermissionModel {
   })
   id_permission: string;
 
-  @Column({ name: 'api_name', nullable: false, unique: false })
-  api_name: string;
+  @Column({ name: 'modulo_name', nullable: false, unique: false })
+  modulo_name: string;
 
   // recebe relacionamento contrato
   @ManyToOne(() => ContractModel, {

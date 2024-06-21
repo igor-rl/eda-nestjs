@@ -10,7 +10,7 @@ import {
 } from '../../../../domain/user-permissions.entity';
 import {
   Contract,
-  IdApi,
+  IdModulo,
 } from '../../../../../contrato/domain/contract.entity';
 import { ContractModel } from '../../../../../contrato/infra/db/typeorm/contract.model';
 import { ContractTypeOrmRepository } from '../../../../../contrato/infra/db/typeorm/contract.typeorm-repository';
@@ -22,9 +22,9 @@ describe('FindUserPermissionsUseCase integration tests', () => {
   let contractRepository: ContractTypeOrmRepository;
   const contract = new Contract({
     id_contract: new IdContract(),
-    id_api: new IdApi(),
-    api_name: 'API_EXAMPLE',
-    api_active: true,
+    id_modulo: new IdModulo(),
+    modulo_name: 'API_EXAMPLE',
+    modulo_active: true,
   });
   const contract2 = new Contract({
     ...contract,
@@ -52,28 +52,28 @@ describe('FindUserPermissionsUseCase integration tests', () => {
         id_contract,
         id_user: id_user_a,
         id_permission: '2',
-        api_name: 'EX_ONLINE',
+        modulo_name: 'EX_ONLINE',
       }),
       UserPermission.create({
         id_user_permission: new IdUserPermission(),
         id_contract,
         id_user: id_user_a,
         id_permission: '1',
-        api_name: 'EX_ONLINE',
+        modulo_name: 'EX_ONLINE',
       }),
       UserPermission.create({
         id_user_permission: new IdUserPermission(),
         id_contract: contract2.id_contract,
         id_user: id_user_b,
         id_permission: '3',
-        api_name: 'EX_ONLINE',
+        modulo_name: 'EX_ONLINE',
       }),
       UserPermission.create({
         id_user_permission: new IdUserPermission(),
         id_contract,
         id_user: id_user_b,
         id_permission: '0',
-        api_name: 'EX_ONLINE',
+        modulo_name: 'EX_ONLINE',
       }),
     ];
     await repository.bulkInsert(aggregates);

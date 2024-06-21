@@ -19,7 +19,7 @@ export class UserPermissionFakeBuilder<TBuild = any> {
   private _id_permission: PropOrFactory<string> = (_index) =>
     this.chance.integer({ min: 1, max: 100 }).toString();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _api_name: PropOrFactory<string> = (_index) => this.chance.word();
+  private _modulo_name: PropOrFactory<string> = (_index) => this.chance.word();
 
   private chance: Chance.Chance;
   private countObjs;
@@ -57,8 +57,8 @@ export class UserPermissionFakeBuilder<TBuild = any> {
     return this;
   }
 
-  withName(api_name: PropOrFactory<string>) {
-    this._api_name = api_name;
+  withName(modulo_name: PropOrFactory<string>) {
+    this._modulo_name = modulo_name;
     return this;
   }
 
@@ -71,7 +71,7 @@ export class UserPermissionFakeBuilder<TBuild = any> {
           id_contract: this.callFactory(this._id_contract, index),
           id_user: this.callFactory(this._id_user, index),
           id_permission: this.callFactory(this._id_permission, index),
-          api_name: this.callFactory(this._api_name, index),
+          modulo_name: this.callFactory(this._modulo_name, index),
         });
         return user_permission;
       });
@@ -96,8 +96,8 @@ export class UserPermissionFakeBuilder<TBuild = any> {
     return this.getValue('id_permission');
   }
 
-  get api_name() {
-    return this.getValue('api_name');
+  get modulo_name() {
+    return this.getValue('modulo_name');
   }
 
   private getValue(prop: any) {
@@ -106,7 +106,7 @@ export class UserPermissionFakeBuilder<TBuild = any> {
       'id_user',
       'id_permission',
       'id_contract',
-      'api_name',
+      'modulo_name',
     ];
     const privateProp = `_${prop}` as keyof this;
     console.log('teste de getValue', privateProp);

@@ -13,7 +13,7 @@ describe('UserPermissionOutput Unit Tests', () => {
       id_contract: new IdContract(),
       id_user: new IdUser(),
       id_permission: '0',
-      api_name: 'api1',
+      modulo_name: 'api1',
     });
     const output = UserPermissionOutputMapper.toOutput(aggregate);
     expect(output).toStrictEqual({
@@ -21,7 +21,7 @@ describe('UserPermissionOutput Unit Tests', () => {
       id_contract: aggregate.id_contract.id,
       id_user: aggregate.id_user.id,
       id_permission: aggregate.id_permission,
-      nome_api: aggregate.api_name,
+      nome_api: aggregate.modulo_name,
     });
   });
 });

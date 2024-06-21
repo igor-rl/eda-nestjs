@@ -8,9 +8,9 @@ describe('ContractOutput Unit Tests', () => {
     const output = ContractOutputMapper.toOutput(entity);
     expect(output).toStrictEqual({
       id: entity.id_contract.id,
-      id_api: entity.id_api.id,
-      api_name: entity.api_name,
-      api_active: entity.api_active,
+      id_modulo: entity.id_modulo.id,
+      modulo_name: entity.modulo_name,
+      modulo_active: entity.modulo_active,
     });
     expect(spyToJSON).toHaveBeenCalled();
   });

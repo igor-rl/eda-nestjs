@@ -2,9 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export type IContractModel = {
   id: string;
-  id_api: string;
-  api_name: string;
-  api_active: boolean;
+  id_modulo: string;
+  modulo_name: string;
+  modulo_active: boolean;
 };
 
 @Entity({ name: 'contrato' })
@@ -13,11 +13,11 @@ export class ContractModel implements IContractModel {
   id: string;
 
   @Column({ type: 'uuid' })
-  id_api: string;
+  id_modulo: string;
 
-  @Column({ name: 'api_name' })
-  api_name: string;
+  @Column({ name: 'modulo_name' })
+  modulo_name: string;
 
   @Column({ default: true })
-  api_active: boolean;
+  modulo_active: boolean;
 }

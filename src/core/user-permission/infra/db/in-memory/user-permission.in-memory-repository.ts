@@ -17,8 +17,7 @@ export class UserPermissionInMemoryRepository
     IdUserPermission,
     UserPermissionFilter
   >
-  implements IUserPermissionRepository
-{
+  implements IUserPermissionRepository {
   sortableFields: string[] = ['created_at'];
 
   getEntity(): new (...args: any[]) => UserPermission {
@@ -75,11 +74,11 @@ export class UserPermissionInMemoryRepository
       const containsIdUserPermission =
         filter.id_permission && i.id_permission === filter.id_permission;
       const containsIdUser = filter.id_user && i.id_user.equals(filter.id_user);
-      const containsApiName = filter.api_name && i.api_name === filter.api_name;
+      const containsModuloName = filter.modulo_name && i.modulo_name === filter.modulo_name;
       const filterMap = [
         [filter.id_permission, containsIdUserPermission],
         [filter.id_user, containsIdUser],
-        [filter.api_name, containsApiName],
+        [filter.modulo_name, containsModuloName],
       ].filter((i) => i[0]);
       return filterMap.every((i) => i[1]);
     });

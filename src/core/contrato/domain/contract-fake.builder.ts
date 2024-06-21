@@ -1,16 +1,16 @@
 import { Chance } from 'chance';
-import { Contract, IdApi, IdContract } from './contract.entity';
+import { Contract, IdModulo, IdContract } from './contract.entity';
 
 type PropOrFactory<T> = T | ((index: number) => T);
 
 export class ContractFakeBuilder<TBuild = any> {
   private _id_contract: PropOrFactory<IdContract> | undefined =
     undefined ?? new IdContract();
-  private _id_api: PropOrFactory<IdApi> | undefined = undefined ?? new IdApi();
+  private _id_modulo: PropOrFactory<IdModulo> | undefined = undefined ?? new IdModulo();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _api_name: PropOrFactory<string> = (_index) => this.chance.word();
+  private _modulo_name: PropOrFactory<string> = (_index) => this.chance.word();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _api_active: PropOrFactory<boolean> = (_index) => true;
+  private _modulo_active: PropOrFactory<boolean> = (_index) => true;
 
   private countObjs;
 
@@ -34,23 +34,23 @@ export class ContractFakeBuilder<TBuild = any> {
     return this;
   }
 
-  withIdApi(id_api: PropOrFactory<IdApi>) {
-    this._id_api = id_api;
+  withIdModulo(id_modulo: PropOrFactory<IdModulo>) {
+    this._id_modulo = id_modulo;
     return this;
   }
 
-  withName(api_name: PropOrFactory<string>) {
-    this._api_name = api_name;
+  withName(modulo_name: PropOrFactory<string>) {
+    this._modulo_name = modulo_name;
     return this;
   }
 
   activate() {
-    this._api_active = true;
+    this._modulo_active = true;
     return this;
   }
 
   deactivate() {
-    this._api_active = false;
+    this._modulo_active = false;
     return this;
   }
 
@@ -60,9 +60,9 @@ export class ContractFakeBuilder<TBuild = any> {
       .map((_, index) => {
         const contrato = new Contract({
           id_contract: this.callFactory(this.id_contract, index),
-          id_api: this.callFactory(this.id_api, index),
-          api_name: this.callFactory(this._api_name, index),
-          api_active: this.callFactory(this._api_active, index),
+          id_modulo: this.callFactory(this.id_modulo, index),
+          modulo_name: this.callFactory(this._modulo_name, index),
+          modulo_active: this.callFactory(this._modulo_active, index),
         });
         contrato.validate();
         return contrato;
@@ -74,20 +74,20 @@ export class ContractFakeBuilder<TBuild = any> {
     return this.getValue('id_contract');
   }
 
-  get id_api() {
-    return this.getValue('id_api');
+  get id_modulo() {
+    return this.getValue('id_modulo');
   }
 
-  get api_name() {
-    return this.getValue('api_name');
+  get modulo_name() {
+    return this.getValue('modulo_name');
   }
 
-  get api_active() {
-    return this.getValue('api_active');
+  get modulo_active() {
+    return this.getValue('modulo_active');
   }
 
   private getValue(prop: any) {
-    const optional = ['id_contract', 'id_api'];
+    const optional = ['id_contract', 'id_modulo'];
     const privateProp = `_${prop}` as keyof this;
     if (!this[privateProp] && optional.includes(prop)) {
       throw new Error(

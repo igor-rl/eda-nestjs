@@ -16,8 +16,8 @@ describe('CreateContractUseCase Unit Tests', () => {
       await expect(
         useCase.execute({
           id_contract: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-          id_api: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-          api_name: 'Teste',
+          id_modulo: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
+          modulo_name: 'Teste',
         }),
       ).rejects.toThrow(expectedError);
     });
@@ -26,15 +26,15 @@ describe('CreateContractUseCase Unit Tests', () => {
       const spyInsert = jest.spyOn(repository, 'insert');
       const output = await useCase.execute({
         id_contract: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-        id_api: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-        api_name: 'Teste',
+        id_modulo: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
+        modulo_name: 'Teste',
       });
       expect(spyInsert).toHaveBeenCalledTimes(1);
       expect(output).toStrictEqual({
         id: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-        id_api: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
-        api_name: 'Teste',
-        api_active: true,
+        id_modulo: 'f7f1f1b4-0b1b-4b7b-8b3b-0b1b4b7b8b3b',
+        modulo_name: 'Teste',
+        modulo_active: true,
       });
     });
   });

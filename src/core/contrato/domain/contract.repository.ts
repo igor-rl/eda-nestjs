@@ -4,12 +4,12 @@ import {
   SearchParamsConstructorProps,
 } from '../../shared/domain/repository/search-params';
 import { SearchResult } from '../../shared/domain/repository/search-result';
-import { Contract, IdApi, IdContract } from './contract.entity';
+import { Contract, IdModulo, IdContract } from './contract.entity';
 
 export type ContractFilter = {
-  id_api?: IdApi;
-  api_name?: string;
-  api_active?: boolean;
+  id_modulo?: IdModulo;
+  modulo_name?: string;
+  modulo_active?: boolean;
   api_not_active?: boolean;
 };
 
@@ -20,30 +20,30 @@ export class ContractSearchParams extends SearchParams<ContractFilter> {
   static create(
     props: Omit<SearchParamsConstructorProps<ContractFilter>, 'filter'> & {
       filter?: {
-        id_api?: IdApi | string;
-        api_name?: string | null;
-        api_active?: boolean | string;
+        id_modulo?: IdModulo | string;
+        modulo_name?: string | null;
+        modulo_active?: boolean | string;
         api_not_active?: boolean | string;
       };
     } = {},
   ) {
-    const id_api =
-      props.filter?.id_api instanceof IdApi
-        ? props.filter.id_api
-        : props.filter?.id_api && new IdApi(props.filter.id_api);
+    const id_modulo =
+      props.filter?.id_modulo instanceof IdModulo
+        ? props.filter.id_modulo
+        : props.filter?.id_modulo && new IdModulo(props.filter.id_modulo);
     return new ContractSearchParams({
       ...props,
       filter: {
-        id_api: id_api || null,
-        api_name: props.filter?.api_name || '',
-        api_active:
-          props.filter?.api_active === true ||
-          props.filter?.api_active === 'true'
+        id_modulo: id_modulo || null,
+        modulo_name: props.filter?.modulo_name || '',
+        modulo_active:
+          props.filter?.modulo_active === true ||
+            props.filter?.modulo_active === 'true'
             ? true
             : null,
         api_not_active:
-          props.filter?.api_active === false ||
-          props.filter?.api_active === 'false'
+          props.filter?.modulo_active === false ||
+            props.filter?.modulo_active === 'false'
             ? true
             : null,
       },
@@ -62,11 +62,11 @@ export class ContractSearchParams extends SearchParams<ContractFilter> {
 
     const filter = {
       ...(_value &&
-        _value.id_api && {
-          id_api: _value?.id_api,
-        }),
-      ...(_value && _value.api_name && { api_name: `${_value?.api_name}` }),
-      ...(_value && _value.api_active && { api_active: _value?.api_active }),
+        _value.id_modulo && {
+        id_modulo: _value?.id_modulo,
+      }),
+      ...(_value && _value.modulo_name && { modulo_name: `${_value?.modulo_name}` }),
+      ...(_value && _value.modulo_active && { modulo_active: _value?.modulo_active }),
       ...(_value &&
         _value.api_not_active && { api_not_active: _value?.api_not_active }),
     };
@@ -75,7 +75,7 @@ export class ContractSearchParams extends SearchParams<ContractFilter> {
   }
 }
 
-export class ContractSearchResult extends SearchResult<Contract> {}
+export class ContractSearchResult extends SearchResult<Contract> { }
 
 export interface IContractRepository
   extends ISearchableRepository<
@@ -84,4 +84,4 @@ export interface IContractRepository
     ContractFilter,
     ContractSearchParams,
     ContractSearchResult
-  > {}
+  > { }

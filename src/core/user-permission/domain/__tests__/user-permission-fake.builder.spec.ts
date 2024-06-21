@@ -8,7 +8,7 @@ describe('UserPermissionFakeBuilder', () => {
       id_contract: expect.any(String),
       id_user: expect.any(String),
       id_permission: expect.any(String),
-      api_name: expect.any(String),
+      modulo_name: expect.any(String),
     });
   });
 });

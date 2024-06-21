@@ -1,5 +1,5 @@
 import { ContractFakeBuilder } from '../contract-fake.builder';
-import { IdApi, IdContract } from '../contract.entity';
+import { IdModulo, IdContract } from '../contract.entity';
 
 describe('ContractFakeBuilder', () => {
   describe('IdContractFakeBuilder property', () => {
@@ -28,36 +28,36 @@ describe('ContractFakeBuilder', () => {
       expect(fakerMany.build()[1].id_contract).toBe(contratoId);
     });
   });
-  describe('id_api property', () => {
+  describe('id_modulo property', () => {
     const faker = ContractFakeBuilder.anContract();
     it('should be empty', () => {
-      expect(faker['_id_api']).toBeInstanceOf(IdApi);
+      expect(faker['_id_modulo']).toBeInstanceOf(IdModulo);
     });
-    test('withIdApi', () => {
-      const apiId = new IdApi();
-      const $this = faker.withIdApi(apiId);
+    test('withIdModulo', () => {
+      const apiId = new IdModulo();
+      const $this = faker.withIdModulo(apiId);
       expect($this).toBeInstanceOf(ContractFakeBuilder);
-      expect(faker['_id_api']).toStrictEqual(apiId);
+      expect(faker['_id_modulo']).toStrictEqual(apiId);
     });
   });
   describe('Active property', () => {
     const faker = ContractFakeBuilder.anContract();
     it('should be a function', () => {
-      expect(typeof faker['_api_active']).toBe('function');
+      expect(typeof faker['_modulo_active']).toBe('function');
     });
-    it('activate should set api_active', () => {
+    it('activate should set modulo_active', () => {
       const newFaker = faker.activate();
       expect(newFaker).toBeInstanceOf(ContractFakeBuilder);
-      expect(newFaker['_api_active']).toBe(true);
+      expect(newFaker['_modulo_active']).toBe(true);
       faker.activate();
-      expect(faker.api_active).toBe(true);
+      expect(faker.modulo_active).toBe(true);
     });
-    it('deactivate should set api_active', () => {
+    it('deactivate should set modulo_active', () => {
       const newFaker = faker.deactivate();
       expect(newFaker).toBeInstanceOf(ContractFakeBuilder);
-      expect(newFaker['_api_active']).toBe(false);
+      expect(newFaker['_modulo_active']).toBe(false);
       faker.deactivate();
-      expect(faker.api_active).toBe(false);
+      expect(faker.modulo_active).toBe(false);
     });
   });
 });

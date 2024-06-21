@@ -1,4 +1,4 @@
-import { IdApi } from '../../../../../apis/domain/api.entity';
+import { IdModulo } from '../../../../../modulos/domain/api.entity';
 import { Contract } from '../../../../domain/contract.entity';
 import { ContractSearchResult } from '../../../../domain/contract.repository';
 import { ContractInMemoryRepository } from '../../../../infra/db/in-memory/contract-in-memory.repository';
@@ -9,20 +9,20 @@ describe('ListContractsUseCase Unit Tests', () => {
   let useCase: ListContractsUseCase;
   let repository: ContractInMemoryRepository;
   const created_at = new Date();
-  const idApi = new IdApi();
-  const idApi2 = new IdApi();
+  const idModulo = new IdModulo();
+  const idModulo2 = new IdModulo();
   const items = [
     Contract.fake()
       .anContract()
       .withName('test')
-      .addIdApiAccess(idApi2)
+      .addIdModuloAccess(idModulo2)
       .deactivate()
       .build(),
     Contract.fake()
       .anContract()
       .withName('a')
       .deactivate()
-      .addIdApiAccess(idApi)
+      .addIdModuloAccess(idModulo)
       .withCreatedAt(created_at)
       .build(),
     Contract.fake()
@@ -34,7 +34,7 @@ describe('ListContractsUseCase Unit Tests', () => {
       .anContract()
       .withName('TeSt')
       .withCreatedAt(created_at)
-      .addIdApiAccess(idApi2)
+      .addIdModuloAccess(idModulo2)
       .build(),
   ];
   beforeEach(() => {
@@ -130,14 +130,14 @@ describe('ListContractsUseCase Unit Tests', () => {
     }
   });
 
-  it('id_api', async () => {
+  it('id_modulo', async () => {
     repository.items = items;
     const arrange = [
       {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: new IdApi().id },
+          filter: { id_modulo: new IdModulo().id },
         },
         output: {
           items: [].map(ContractOutputMapper.toOutput),
@@ -151,7 +151,7 @@ describe('ListContractsUseCase Unit Tests', () => {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: idApi.id },
+          filter: { id_modulo: idModulo.id },
         },
         output: {
           items: [items[1]].map(ContractOutputMapper.toOutput),
@@ -165,7 +165,7 @@ describe('ListContractsUseCase Unit Tests', () => {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: idApi2.id },
+          filter: { id_modulo: idModulo2.id },
         },
         output: {
           items: [items[0], items[3]].map(ContractOutputMapper.toOutput),

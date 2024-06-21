@@ -1,0 +1,72 @@
+# Exemplo de manifesto. Os valores abaixo são marcadores: use Secrets do Kubernetes para
+# senhas, chaves e client secrets, e nunca grave credenciais reais neste arquivo.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eda-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eda-app
+  template:
+    metadata:
+      labels:
+        app: eda-app
+    spec:
+      containers:
+      - name: eda-app
+        image: igorlage/nestjs-eda:0.0.7
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_VENDOR
+          value: "postgres"
+        - name: DB_HOST
+          value: "eda-db"
+        - name: DB_PORT
+          value: "5433"
+        - name: DB_USERNAME
+          value: "pguser"
+        - name: DB_PASSWORD
+          value: "pgpass"
+        - name: DB_DATABASE
+          value: "eda"
+        - name: DB_LOGGING
+          value: "false"
+        - name: SYNCHRONIZE
+          value: "false"
+        - name: RABBITMQ_URI
+          # value: amqp://guest:guest@host.minikube.internal:5672 # minikube
+          value: "amqp://user:password@eda-rabbitmq:5672"
+        - name: RABBITMQ_REGISTER_HANDLERS
+          value: "true"
+        - name: JWT_PUBLIC_KEY
+          value: "-----BEGIN PUBLIC KEY-----\n\n-----END PUBLIC KEY-----\n"
+        - name: JWT_PRIVATE_KEY
+          value: "-----BEGIN PRIVATE KEY-----\n\n-----END PRIVATE KEY-----\n"
+        - name: KEYCLOAK_URL
+          value: "https://keycloak.example.com"
+        - name: KEYCLOAK_ADMIN_USERNAME
+          value: admin
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: CHANGE_ME
+        - name: KEYCLOAK_ADMIN_CLIENT_ID
+          value: client
+        - name: KEYCLOAK_ADMIN_CLIENT_SECRET
+          value: CHANGE_ME
+        - name: KEYCLOAK_REALM
+          value: realm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eda-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: eda-app
+

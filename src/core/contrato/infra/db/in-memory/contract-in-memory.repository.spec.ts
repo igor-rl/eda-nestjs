@@ -1,12 +1,12 @@
-import { Contract, IdApi } from '../../../domain/contract.entity';
+import { Contract, IdModulo } from '../../../domain/contract.entity';
 import { ContractInMemoryRepository } from './contract-in-memory.repository';
 
 describe('ContractInMemoryRepository', () => {
   let repository: ContractInMemoryRepository;
   beforeEach(() => (repository = new ContractInMemoryRepository()));
-  const idsApiAccess = new IdApi();
+  const idsModuloAccess = new IdModulo();
   const itens: Contract[] = [
-    Contract.fake().anContract().withIdApi(idsApiAccess).build(),
+    Contract.fake().anContract().withIdModulo(idsModuloAccess).build(),
     Contract.fake().anContract().deactivate().build(),
     Contract.fake().anContract().build(),
   ];
@@ -24,15 +24,15 @@ describe('ContractInMemoryRepository', () => {
     });
     expect(itensFiltrados).toStrictEqual([itens[1]]);
     itensFiltrados = await repository['applyFilter'](itens, {
-      api_active: true,
+      modulo_active: true,
     });
     expect(itensFiltrados).toStrictEqual([itens[0], itens[2]]);
     expect(filterSpy).toHaveBeenCalledTimes(2);
   });
-  it('deve filtrar usando o id_api', async () => {
+  it('deve filtrar usando o id_modulo', async () => {
     const filterSpy = jest.spyOn(itens, 'filter' as any);
     const itensFiltrados = await repository['applyFilter'](itens, {
-      id_api: idsApiAccess,
+      id_modulo: idsModuloAccess,
     });
     expect(itensFiltrados.length).toBe(1);
     expect(itensFiltrados).toStrictEqual([itens[0]]);

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eda-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eda-db
+  template:
+    metadata:
+      labels:
+        app: eda-db
+    spec:
+      containers:
+      - name: eda-db
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "pguser"
+        - name: POSTGRES_PASSWORD
+          value: "pgpass"
+        - name: POSTGRES_DB
+          value: "eda"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eda-db
+spec:
+  ports:
+  - port: 5433
+    targetPort: 5432
+  selector:
+    app: eda-db
