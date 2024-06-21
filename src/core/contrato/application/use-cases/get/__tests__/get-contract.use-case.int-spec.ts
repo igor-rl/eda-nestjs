@@ -31,9 +31,9 @@ describe('GetContractUseCase integration tests', () => {
     const output = await useCase.execute({ id: register.id_contract!.id });
     expect(output).toStrictEqual({
       id: register.id_contract!.id,
-      id_api: register.id_api!.id,
-      api_name: register.api_name,
-      api_active: register.api_active,
+      id_modulo: register.id_modulo!.id,
+      modulo_name: register.modulo_name,
+      modulo_active: register.modulo_active,
     });
   });
 });

@@ -11,7 +11,7 @@ describe('UserPermission Aggregate Unit Tests', () => {
     id_contract: new IdContract(),
     id_user: new IdUser(),
     id_permission: '0',
-    api_name: 'api_name',
+    modulo_name: 'modulo_name',
   };
   describe('Constructor of UserPermission', () => {
     const userPermissions = [
@@ -27,7 +27,7 @@ describe('UserPermission Aggregate Unit Tests', () => {
         expect(permission.id_contract).toBeInstanceOf(IdContract);
         expect(permission.id_user).toBeInstanceOf(IdUser);
         expect(typeof permission.id_permission).toBe('string');
-        expect(typeof permission.api_name).toBe('string');
+        expect(typeof permission.modulo_name).toBe('string');
       },
     );
   });

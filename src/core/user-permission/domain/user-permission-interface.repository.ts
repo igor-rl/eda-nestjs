@@ -15,7 +15,7 @@ export type UserPermissionFilter = {
   id_contract?: IdContract;
   id_permission?: string;
   id_user?: IdUser;
-  api_name?: string;
+  modulo_name?: string;
 };
 
 export class UserPermissionSearchParams extends SearchParams<UserPermissionFilter> {
@@ -52,7 +52,7 @@ export class UserPermissionSearchParams extends SearchParams<UserPermissionFilte
         id_contract: id_contract || null,
         id_permission: id_permission || null,
         id_user: id_user || null,
-        api_name: props.filter?.nome_api || null,
+        modulo_name: props.filter?.nome_api || null,
       },
     });
   }
@@ -69,15 +69,15 @@ export class UserPermissionSearchParams extends SearchParams<UserPermissionFilte
     const filter = {
       ...(_value &&
         _value.id_permission && {
-          id_permission: _value?.id_permission,
-        }),
+        id_permission: _value?.id_permission,
+      }),
       ...(_value && _value.id_user && { id_user: _value?.id_user }),
     };
     this._filter = Object.keys(filter).length === 0 ? null : filter;
   }
 }
 
-export class UserPermissionSearchResult extends SearchResult<UserPermission> {}
+export class UserPermissionSearchResult extends SearchResult<UserPermission> { }
 
 export interface IUserPermissionRepository
   extends ISearchableRepository<

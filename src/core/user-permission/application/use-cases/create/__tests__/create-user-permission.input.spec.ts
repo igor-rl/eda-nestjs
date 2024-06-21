@@ -13,7 +13,7 @@ describe('CreateUserPermissionInput Unit Tests', () => {
     input.id_contract = new IdContract().id;
     input.id_user = new IdUser().id;
     input.id_permission = '0';
-    input.api_name = 'api1';
+    input.modulo_name = 'api1';
     const errors = validateSync(input);
     expect(errors).toHaveLength(0);
   });
@@ -23,7 +23,7 @@ describe('CreateUserPermissionInput Unit Tests', () => {
     input.id_contract = undefined as any;
     input.id_user = undefined as any;
     input.id_permission = undefined as any;
-    input.api_name = undefined as any;
+    input.modulo_name = undefined as any;
 
     let errors = validateSync(input);
     expect(errors).toHaveLength(5);
@@ -43,7 +43,7 @@ describe('CreateUserPermissionInput Unit Tests', () => {
       matches: 'id_permission must be an integer number',
     });
     expect(errors[4].constraints).toMatchObject({
-      isNotEmpty: 'api_name should not be empty',
+      isNotEmpty: 'modulo_name should not be empty',
     });
     expect(errors[5]).toBeUndefined();
 
@@ -51,7 +51,7 @@ describe('CreateUserPermissionInput Unit Tests', () => {
     input.id_contract = 'invalid-uuid';
     input.id_user = 'invalid-uuid';
     input.id_permission = '';
-    input.api_name = '';
+    input.modulo_name = '';
     errors = validateSync(input);
     expect(errors).toHaveLength(5);
     expect(errors[0].constraints).toMatchObject({
@@ -67,7 +67,7 @@ describe('CreateUserPermissionInput Unit Tests', () => {
       matches: 'id_permission must be an integer number',
     });
     expect(errors[4].constraints).toMatchObject({
-      isNotEmpty: 'api_name should not be empty',
+      isNotEmpty: 'modulo_name should not be empty',
     });
     expect(errors[5]).toBeUndefined();
   });

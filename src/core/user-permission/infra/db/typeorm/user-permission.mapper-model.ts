@@ -13,7 +13,7 @@ export class UserPermissionModelMapper {
       id_contract: entity.id_contract.id,
       id_user: entity.id_user.id,
       id_permission: entity.id_permission,
-      api_name: entity.api_name,
+      modulo_name: entity.modulo_name,
     };
   }
 
@@ -23,7 +23,7 @@ export class UserPermissionModelMapper {
       id_contract: new IdContract(model.id_contract),
       id_user: new IdUser(model.id_user),
       id_permission: model.id_permission,
-      api_name: model.api_name,
+      modulo_name: model.modulo_name,
     });
   }
 }

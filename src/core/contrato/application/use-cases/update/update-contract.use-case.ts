@@ -10,9 +10,8 @@ import {
 import { UpdateContractInput } from './update-contract.input';
 
 export class UpdateContractUseCase
-  implements IUseCase<UpdateContractInput, UpdateContractOutput>
-{
-  constructor(private repository: IContractRepository) {}
+  implements IUseCase<UpdateContractInput, UpdateContractOutput> {
+  constructor(private repository: IContractRepository) { }
 
   async execute(input: UpdateContractInput): Promise<UpdateContractOutput> {
     const idContract = new IdContract(input.id);
@@ -20,8 +19,8 @@ export class UpdateContractUseCase
     if (!model) {
       throw new NotFoundError(idContract.id, Contract);
     }
-    input.api_active && model.activate();
-    !input.api_active && model.deactivate();
+    input.modulo_active && model.activate();
+    !input.modulo_active && model.deactivate();
     if (model.notification.hasErrors()) {
       throw new EntityValidationError(model.notification.toJSON());
     }

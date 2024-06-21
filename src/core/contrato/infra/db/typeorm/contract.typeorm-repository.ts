@@ -11,13 +11,13 @@ import { NotFoundError } from '../../../../shared/domain/errors/not-found.error'
 import { InvalidArgumentError } from '../../../../shared/domain/errors/invalid-argument.error';
 
 export class ContractTypeOrmRepository implements IContractRepository {
-  sortableFields: string[] = ['api_name'];
+  sortableFields: string[] = ['modulo_name'];
 
   orderBy = {
-    api_name: (sort_dir: 'ASC' | 'DESC') => ({ order: { api_name: sort_dir } }),
+    modulo_name: (sort_dir: 'ASC' | 'DESC') => ({ order: { modulo_name: sort_dir } }),
   };
 
-  constructor(private repository: Repository<ContractModel>) {}
+  constructor(private repository: Repository<ContractModel>) { }
 
   async insert(aggregate: Contract): Promise<void> {
     const model = ContractModelMapper.toModel(aggregate);
@@ -48,8 +48,8 @@ export class ContractTypeOrmRepository implements IContractRepository {
     }
   }
 
-  async findByIds(ids_apis: IdContract[]): Promise<Contract[]> {
-    const ids = ids_apis.map((id_contract) => id_contract.id);
+  async findByIds(ids_modulos: IdContract[]): Promise<Contract[]> {
+    const ids = ids_modulos.map((id_contract) => id_contract.id);
     const models = await this.repository.find({
       where: {
         id: In(ids),
@@ -102,24 +102,24 @@ export class ContractTypeOrmRepository implements IContractRepository {
 
     if (
       props.filter &&
-      (props.filter.id_api ||
-        props.filter.api_name ||
-        props.filter?.api_active ||
+      (props.filter.id_modulo ||
+        props.filter.modulo_name ||
+        props.filter?.modulo_active ||
         props.filter?.api_not_active)
     ) {
-      if (props.filter.id_api) {
+      if (props.filter.id_modulo) {
         wheres.push({
-          id_api: Like(`%${props.filter.id_api}%`),
+          id_modulo: Like(`%${props.filter.id_modulo}%`),
         });
       }
-      if (props.filter.api_name) {
-        wheres.push({ api_name: Like(`%${props.filter.api_name}%`) });
+      if (props.filter.modulo_name) {
+        wheres.push({ modulo_name: Like(`%${props.filter.modulo_name}%`) });
       }
-      if (props.filter.api_active) {
-        wheres.push({ api_active: true });
+      if (props.filter.modulo_active) {
+        wheres.push({ modulo_active: true });
       }
       if (props.filter.api_not_active) {
-        wheres.push({ api_active: false });
+        wheres.push({ modulo_active: false });
       }
     }
     let wheresConcat = {};
@@ -131,7 +131,7 @@ export class ContractTypeOrmRepository implements IContractRepository {
       }),
       ...(props.sort && this.sortableFields.includes(props.sort)
         ? { order: { [props.sort]: props.sort_dir } }
-        : { order: { api_name: 'DESC' } }),
+        : { order: { modulo_name: 'DESC' } }),
       skip,
       take,
     });

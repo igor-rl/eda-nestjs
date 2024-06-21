@@ -9,7 +9,7 @@ import { UserPermissionTypeOrmRepository } from '../../../../infra/db/typeorm/us
 import { DeleteUserPermissionUseCase } from '../delete-user-permission.use-case';
 import {
   Contract,
-  IdApi,
+  IdModulo,
 } from '../../../../../contrato/domain/contract.entity';
 import { ContractModel } from '../../../../../contrato/infra/db/typeorm/contract.model';
 import { ContractTypeOrmRepository } from '../../../../../contrato/infra/db/typeorm/contract.typeorm-repository';
@@ -22,9 +22,9 @@ describe('DeleteUserPermissionUseCase integration tests', () => {
   let contractRepository: ContractTypeOrmRepository;
   const contract = new Contract({
     id_contract: new IdContract(),
-    id_api: new IdApi(),
-    api_name: 'API_EXAMPLE',
-    api_active: true,
+    id_modulo: new IdModulo(),
+    modulo_name: 'API_EXAMPLE',
+    modulo_active: true,
   });
   beforeEach(async () => {
     const dataSource = setup.dataSource;

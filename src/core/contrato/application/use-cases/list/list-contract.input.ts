@@ -14,7 +14,7 @@ export class ListContractsFilter {
   id_user_master?: string | null;
   @IsOptional()
   @IsString()
-  id_api?: string | null;
+  id_modulo?: string | null;
   @IsOptional()
   @IsString()
   name?: string | null;
@@ -28,7 +28,7 @@ export class ListContractsFilter {
 
 const filterExample: ListContractsFilter = {
   id_user_master: null,
-  id_api: null,
+  id_modulo: null,
   name: null,
   description: null,
   is_active: null,

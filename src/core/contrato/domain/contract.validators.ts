@@ -4,8 +4,8 @@ import { ClassValidatorFields } from '../../shared/domain/validators/class-valid
 import { Notification } from '../../shared/domain/validators/notification';
 
 export class ContractRoles {
-  @MaxLength(255, { groups: ['api_name'] })
-  api_name: string;
+  @MaxLength(255, { groups: ['modulo_name'] })
+  modulo_name: string;
 
   constructor(entity: Contract) {
     Object.assign(this, entity);
@@ -18,7 +18,7 @@ export class ContractValidator extends ClassValidatorFields {
     data: Contract,
     fields?: string[],
   ): boolean {
-    const newFields = fields?.length ? fields : ['api_name'];
+    const newFields = fields?.length ? fields : ['modulo_name'];
     return super.validate(notification, new ContractRoles(data), newFields);
   }
 }

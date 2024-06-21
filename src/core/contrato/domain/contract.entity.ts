@@ -3,52 +3,52 @@ import { Uuid } from '../../shared/domain/value-objects/uuid.vo';
 import { ContractFakeBuilder } from './contract-fake.builder';
 import ContractValidatorFactory from './contract.validators';
 
-export class IdContract extends Uuid {}
-export class IdApi extends Uuid {}
+export class IdContract extends Uuid { }
+export class IdModulo extends Uuid { }
 
 export type ContractCreateCommand = {
   id_contract?: IdContract;
-  id_api: IdApi;
-  api_name: string;
-  api_active?: boolean;
+  id_modulo: IdModulo;
+  modulo_name: string;
+  modulo_active?: boolean;
 };
 
 export class ContractConstructorProps {
   id_contract?: IdContract;
-  id_api: IdApi;
-  api_name: string;
-  api_active?: boolean;
+  id_modulo: IdModulo;
+  modulo_name: string;
+  modulo_active?: boolean;
 }
 
 export class Contract extends Entity {
   id_contract: IdContract;
-  id_api: IdApi;
-  api_name: string;
-  api_active?: boolean;
+  id_modulo: IdModulo;
+  modulo_name: string;
+  modulo_active?: boolean;
 
   constructor(props: ContractConstructorProps) {
     super();
     this.id_contract = props.id_contract ?? new IdContract();
-    this.id_api = props.id_api;
-    this.api_name = props.api_name;
-    this.api_active = props.api_active ?? true;
+    this.id_modulo = props.id_modulo;
+    this.modulo_name = props.modulo_name;
+    this.modulo_active = props.modulo_active ?? true;
   }
 
   static create(props: ContractCreateCommand) {
     return new Contract({
       id_contract: props.id_contract,
-      id_api: props.id_api,
-      api_name: props.api_name,
-      api_active: props.api_active,
+      id_modulo: props.id_modulo,
+      modulo_name: props.modulo_name,
+      modulo_active: props.modulo_active,
     });
   }
 
   activate() {
-    this.api_active = true;
+    this.modulo_active = true;
   }
 
   deactivate() {
-    this.api_active = false;
+    this.modulo_active = false;
   }
 
   validate(fields?: string[]) {
@@ -67,9 +67,9 @@ export class Contract extends Entity {
   toJSON() {
     return {
       id_contract: this.id_contract.id,
-      id_api: this.id_api.id,
-      api_name: this.api_name,
-      api_active: this.api_active,
+      id_modulo: this.id_modulo.id,
+      modulo_name: this.modulo_name,
+      modulo_active: this.modulo_active,
     };
   }
 }

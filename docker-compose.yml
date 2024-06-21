@@ -4,28 +4,27 @@ services:
   eda_app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    command: ./.docker/start.sh
     ports:
-      - 3001:3000
+      - 3000:3000
+    env_file:
+      - envs/.env.prod
     volumes:
       - ../:/home/node/eda_app
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:15672"
     labels:
       filebeat_collector: true
     depends_on:
       - eda_db
-    
   
   eda_db:
     image: postgres
     restart: always
     tty: true
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpass

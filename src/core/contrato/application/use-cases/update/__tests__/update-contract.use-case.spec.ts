@@ -18,7 +18,7 @@ describe('UpdateContractUseCase unit tests', () => {
       useCase.execute(
         new UpdateContractInput({
           id: idContract.id,
-          api_active: true,
+          modulo_active: true,
         }),
       ),
     ).rejects.toThrow(new NotFoundError(idContract.id, Contract));
@@ -29,38 +29,38 @@ describe('UpdateContractUseCase unit tests', () => {
     type Arrange = {
       input: {
         id: string;
-        api_active?: boolean;
+        modulo_active?: boolean;
       };
       expected: {
         id: string;
-        id_api: string;
-        api_name: string;
-        api_active: boolean;
+        id_modulo: string;
+        modulo_name: string;
+        modulo_active: boolean;
       };
     };
     const arrange: Arrange[] = [
       {
         input: {
           id: entity.id_contract.id,
-          api_active: true,
+          modulo_active: true,
         },
         expected: {
           id: entity.id_contract.id,
-          id_api: '00000000-0000-0000-0000-000000000000',
-          api_name: expect.any(String),
-          api_active: true,
+          id_modulo: '00000000-0000-0000-0000-000000000000',
+          modulo_name: expect.any(String),
+          modulo_active: true,
         },
       },
       {
         input: {
           id: entity.id_contract.id,
-          api_active: false,
+          modulo_active: false,
         },
         expected: {
           id: entity.id_contract.id,
-          id_api: '00000000-0000-0000-0000-000000000000',
-          api_name: expect.any(String),
-          api_active: false,
+          id_modulo: '00000000-0000-0000-0000-000000000000',
+          modulo_name: expect.any(String),
+          modulo_active: false,
         },
       },
     ];
@@ -69,15 +69,15 @@ describe('UpdateContractUseCase unit tests', () => {
       output = await useCase.execute(
         new UpdateContractInput({
           id: i.input.id,
-          ...('api_name' in i.input && { api_name: i.input.api_name }),
-          ...('api_active' in i.input && { api_active: i.input.api_active }),
+          ...('modulo_name' in i.input && { modulo_name: i.input.modulo_name }),
+          ...('modulo_active' in i.input && { modulo_active: i.input.modulo_active }),
         }),
       );
       expect(output).toStrictEqual({
         id: entity.id_contract.id,
-        id_api: entity.id_api.id,
-        api_name: i.expected.api_name,
-        api_active: i.expected.api_active,
+        id_modulo: entity.id_modulo.id,
+        modulo_name: i.expected.modulo_name,
+        modulo_active: i.expected.modulo_active,
       });
     }
   });

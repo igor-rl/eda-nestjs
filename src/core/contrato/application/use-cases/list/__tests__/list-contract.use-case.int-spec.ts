@@ -6,7 +6,7 @@ import { ContractModel } from '../../../../infra/db/typeorm/contract.model';
 import { ContractTypeOrmRepository } from '../../../../infra/db/typeorm/contract.typeorm-repository';
 import { ContractOutputMapper } from '../../@common/contract.output';
 import { ListContractsUseCase } from '../list-contract.use-case';
-import { IdApi } from '../../../../../apis/domain/api.entity';
+import { IdModulo } from '../../../../../modulos/domain/api.entity';
 import { SortDirection } from '../../../../../shared/domain/repository/search-params';
 
 describe('ListContractsUseCase integration tests', () => {
@@ -23,15 +23,15 @@ describe('ListContractsUseCase integration tests', () => {
     jest.restoreAllMocks();
     await repository.bulkInsert(entities);
   });
-  const idApi = new IdApi();
-  const idApi2 = new IdApi();
+  const idModulo = new IdModulo();
+  const idModulo2 = new IdModulo();
   const entities = [
     Contract.fake()
       .anContract()
       .withUserMaster(new IdUser('a8df04bc-4c5c-4427-8307-5b09e5b3327b'))
       .withName('test')
       .withDescription('description')
-      .addIdApiAccess(idApi2)
+      .addIdModuloAccess(idModulo2)
       .withCreatedAt(new Date(new Date().getTime() + 100))
       .deactivate()
       .build(),
@@ -40,7 +40,7 @@ describe('ListContractsUseCase integration tests', () => {
       .withUserMaster(new IdUser('8cf2090a-1e90-4c4d-803b-37c6f692a861'))
       .withName('a')
       .withDescription('description')
-      .addIdApiAccess(idApi)
+      .addIdModuloAccess(idModulo)
       .withCreatedAt(new Date(new Date().getTime() + 200))
       .build(),
     Contract.fake()
@@ -63,7 +63,7 @@ describe('ListContractsUseCase integration tests', () => {
       .withUserMaster(new IdUser('a8df04bc-4c5c-4427-8307-5b09e5b3327b'))
       .withName('TeSt')
       .withDescription('description')
-      .addIdApiAccess(idApi2)
+      .addIdModuloAccess(idModulo2)
       .withCreatedAt(new Date(new Date().getTime() + 500))
       .build(),
   ];
@@ -228,13 +228,13 @@ describe('ListContractsUseCase integration tests', () => {
       },
     );
   });
-  it('id_api', async () => {
+  it('id_modulo', async () => {
     const arrange = [
       {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: new IdApi().id },
+          filter: { id_modulo: new IdModulo().id },
           sort: 'created_at',
           sort_dir: 'asc' as SortDirection,
         },
@@ -250,7 +250,7 @@ describe('ListContractsUseCase integration tests', () => {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: idApi.id },
+          filter: { id_modulo: idModulo.id },
           sort: 'created_at',
           sort_dir: 'asc' as SortDirection,
         },
@@ -266,7 +266,7 @@ describe('ListContractsUseCase integration tests', () => {
         input: {
           page: 1,
           per_page: 2,
-          filter: { id_api: idApi2.id },
+          filter: { id_modulo: idModulo2.id },
           sort: 'created_at',
           sort_dir: 'desc' as SortDirection,
         },

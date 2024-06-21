@@ -16,7 +16,7 @@ describe('UserPermissionInMemoryRepository', () => {
         id_contract: new IdContract(),
         id_user: new IdUser(),
         id_permission: '1',
-        api_name: 'api1',
+        modulo_name: 'api1',
       }),
     ];
     const filterSpy = jest.spyOn(items, 'filter' as any);
@@ -33,21 +33,21 @@ describe('UserPermissionInMemoryRepository', () => {
         id_contract: new IdContract(),
         id_user: user1,
         id_permission: '1',
-        api_name: 'api1',
+        modulo_name: 'api1',
       }),
       UserPermission.create({
         id_user_permission: new IdUserPermission(),
         id_contract: new IdContract(),
         id_user: user1,
         id_permission: '2',
-        api_name: 'api2',
+        modulo_name: 'api2',
       }),
       UserPermission.create({
         id_user_permission: new IdUserPermission(),
         id_contract: new IdContract(),
         id_user: user2,
         id_permission: '2',
-        api_name: 'api2',
+        modulo_name: 'api2',
       }),
     ];
     it('Deve filtrar os itens usando os paramentros de filtros unicos', async () => {
@@ -74,12 +74,12 @@ describe('UserPermissionInMemoryRepository', () => {
       expect(itensFiltrados).toStrictEqual([itens[1]]);
 
       itensFiltrados = await repository['applyFilter'](itens, {
-        api_name: 'api1',
+        modulo_name: 'api1',
       });
       expect(itensFiltrados).toStrictEqual([itens[0]]);
 
       itensFiltrados = await repository['applyFilter'](itens, {
-        api_name: 'api2',
+        modulo_name: 'api2',
       });
       expect(itensFiltrados).toStrictEqual([itens[1], itens[2]]);
 

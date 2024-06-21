@@ -12,7 +12,7 @@ describe('ContractModel Integration Tests', () => {
   let atributesMap: any;
   let modelColumns: string[];
 
-  const apiModelMap = ['id', 'id_api', 'api_name', 'api_active'];
+  const apiModelMap = ['id', 'id_modulo', 'modulo_name', 'modulo_active'];
   beforeAll(() => {
     dataSource = setup.dataSource;
     repository = dataSource.getRepository(ContractModel);
@@ -40,24 +40,24 @@ describe('ContractModel Integration Tests', () => {
       expect(attr.isNullable).toBeFalsy();
       expect(attr.entityMetadata.hasUUIDGeneratedColumns).toBeTruthy();
     });
-    it('id_api', () => {
+    it('id_modulo', () => {
       const attr = atributesMap[1];
-      expect(attr.databaseName).toBe('id_api');
+      expect(attr.databaseName).toBe('id_modulo');
       expect(attr.length).toBe('');
       expect(attr.isPrimary).toBeFalsy();
       expect(attr.isNullable).toBeFalsy();
       expect(attr.type).toBe('uuid');
     });
-    it('api_name', () => {
+    it('modulo_name', () => {
       const attr = atributesMap[2];
-      expect(attr.databaseName).toBe('api_name');
+      expect(attr.databaseName).toBe('modulo_name');
       expect(attr.isPrimary).toBeFalsy();
       expect(attr.isNullable).toBeFalsy();
       expect(new attr.type()).toBeInstanceOf(String);
     });
-    it('api_active', () => {
+    it('modulo_active', () => {
       const attr = atributesMap[3];
-      expect(attr.databaseName).toBe('api_active');
+      expect(attr.databaseName).toBe('modulo_active');
       expect(attr.isPrimary).toBeFalsy();
       expect(attr.isNullable).toBeFalsy();
       expect(new attr.type()).toBeInstanceOf(Boolean);

@@ -17,7 +17,7 @@ describe('UserPermissionModel Integration Tests', () => {
     'id_contract',
     'id_user',
     'id_permission',
-    'api_name',
+    'modulo_name',
   ];
   beforeAll(() => {
     dataSource = setup.dataSource;
@@ -75,9 +75,9 @@ describe('UserPermissionModel Integration Tests', () => {
       expect(new attr.type()).toBeInstanceOf(String);
       expect(attr.length).toBe('');
     });
-    it('api_name', () => {
+    it('modulo_name', () => {
       const attr = atributesMap[4];
-      expect(attr.databaseName).toBe('api_name');
+      expect(attr.databaseName).toBe('modulo_name');
       expect(attr.isPrimary).toBeFalsy();
       expect(attr.isNullable).toBeFalsy();
       expect(new attr.type()).toBeInstanceOf(String);

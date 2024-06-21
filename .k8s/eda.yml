@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eda-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eda-app
+  template:
+    metadata:
+      labels:
+        app: eda-app
+    spec:
+      containers:
+      - name: eda-app
+        image: igorlage/nestjs-eda:0.0.7
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_VENDOR
+          value: "postgres"
+        - name: DB_HOST
+          value: "eda-db"
+        - name: DB_PORT
+          value: "5433"
+        - name: DB_USERNAME
+          value: "pguser"
+        - name: DB_PASSWORD
+          value: "pgpass"
+        - name: DB_DATABASE
+          value: "eda"
+        - name: DB_LOGGING
+          value: "false"
+        - name: SYNCHRONIZE
+          value: "false"
+        - name: RABBITMQ_URI
+          # value: amqp://guest:guest@host.minikube.internal:5672 # minikube
+          value: amqp://guest:guest@message.exsistemas.com.br:5672 # prod
+        - name: RABBITMQ_REGISTER_HANDLERS
+          value: "true"
+        - name: JWT_PUBLIC_KEY
+          value: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl1DgBpXLXdJVox5N3vk87eIMjBu70bHcgaowq+UZbfxQLGnwp6Z9XhZRv6PYGZMViZ1GSV5jyWqVUYKgYR52bBpBUfW5FnskCwcD/bpSW7ug4Jp8yN+XO7hPy/MYRNzKtJw7VQ+M9vmsXphEQdDSb55X3wgG+9OvZov10zhlfR9+AU7mdZOPmHUbr+Tol6HWNXLhxmPOX5ehEpLJau3qn1inIJ0WaaABxZhfVlca42wZ3q1Q2Je+ACIgEBbzT3zkMIj6aYUuzWMrluBAgtcoFIP3Fw0aN/MUbG0EtV8tzXRnLh0JW9UA8AkLKPdkwvpnyCzyW34HYHH0ayyPN18p6QIDAQAB\n-----END PUBLIC KEY-----\n"
+        - name: JWT_PRIVATE_KEY
+          value: "-----BEGIN PRIVATE KEY-----\nMIICrzCCAZcCBgGKvTwnNTANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBBleHNpc3RlbWFzX3JlYWxtMB4XDTIzMDkyMjE0MTA1MFoXDTMzMDkyMjE0MTIzMFowGzEZMBcGA1UEAwwQZXhzaXN0ZW1hc19yZWFsbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJdQ4AaVy13SVaMeTd75PO3iDIwbu9Gx3IGqMKvlGW38UCxp8KemfV4WUb+j2BmTFYmdRkleY8lqlVGCoGEedmwaQVH1uRZ7JAsHA/26Ulu7oOCafMjflzu4T8vzGETcyrScO1UPjPb5rF6YREHQ0m+eV98IBvvTr2aL9dM4ZX0ffgFO5nWTj5h1G6/k6Jeh1jVy4cZjzl+XoRKSyWrt6p9YpyCdFmmgAcWYX1ZXGuNsGd6tUNiXvgAiIBAW80985DCI+mmFLs1jK5bgQILXKBSD9xcNGjfzFGxtBLVfLc10Zy4dCVvVAPAJCyj3ZML6Z8gs8lt+B2Bx9GssjzdfKekCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAdG24deKBst2IZq4xawL6PjiJWzxrIRAfRiE5KdtOqa68gJooqNoY6YvSJATCb7cOumKKHAPSIsxqR/S0nV2NxjSIw9sKCeqWIHNuuof/4PeNTKGWzxEkZPy9ekur8vRVYH8GMBB7LJhRh7+syRH7sHaFApHJssVBRIavHtiS1vInIPHwsZzoi1PZcv1ECQtNRiwg2IR/j9ibgM67W+02d6wiCIPx/UZSzWUG036o9AxqxTaPifGqxWxaALHM+MFMHK6DY5ArUrY0Zj+u/A1k3C5n/YYIxYQShJ/ObjcjHj1VpbvAxN6noukwrLgTRaQf6BijZdzkF1Jx5yhQUpBAMg==\n-----END PRIVATE KEY-----\n"
+        - name: KEYCLOAK_URL
+          value: "https://dev-login.exfranquias.com.br"
+        - name: KEYCLOAK_ADMIN_USERNAME
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "EXdev@2023kc"
+        - name: KEYCLOAK_ADMIN_CLIENT_ID
+          value: "ex_permissao_back_client"
+        - name: KEYCLOAK_ADMIN_CLIENT_SECRET
+          value: "9pTpiTHDYDb1dT7n9CfpeMCpPql0LDv7"
+        - name: KEYCLOAK_REALM
+          value: "exsistemas_realm"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eda-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: eda-app
+

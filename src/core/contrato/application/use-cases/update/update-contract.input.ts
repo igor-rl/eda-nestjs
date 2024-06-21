@@ -9,7 +9,7 @@ import {
 
 export type UpdateContractContructorProps = {
   id: string;
-  api_active: boolean;
+  modulo_active: boolean;
 };
 
 export class UpdateContractInput {
@@ -24,19 +24,19 @@ export class UpdateContractInput {
   id: string;
 
   @ApiProperty({
-    name: 'api_active',
+    name: 'modulo_active',
     required: false,
     type: Boolean,
     default: null,
   })
   @IsBoolean()
   @IsOptional()
-  api_active: boolean;
+  modulo_active: boolean;
 
   constructor(props?: UpdateContractContructorProps) {
     if (!props) return;
     this.id = props.id;
-    this.api_active = props.api_active;
+    this.modulo_active = props.modulo_active;
   }
 }
 

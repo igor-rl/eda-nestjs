@@ -8,13 +8,13 @@ import { DeleteUserPermissionInput } from '../../../core/user-permission/applica
 type UserPermissionDisableApiConsumerProps = {
   payload: {
     id_user_permission: string;
-    api_name: string;
+    modulo_name: string;
   };
 };
 
 @Injectable()
 export class UserPermissionDisableApiConsumer {
-  constructor(private moduloRef: ModuleRef) {}
+  constructor(private moduloRef: ModuleRef) { }
   @RabbitSubscribe({
     exchange: 'amq.direct',
     routingKey: 'user-permission.removed',
@@ -22,7 +22,7 @@ export class UserPermissionDisableApiConsumer {
     allowNonJsonMessages: true,
   })
   async execute({ payload }: UserPermissionDisableApiConsumerProps) {
-    if (payload?.api_name !== 'EX_API_EXAMPLE') return;
+    if (payload?.modulo_name !== 'MODULO_EXAMPLE') return;
     const delete_permission_input = new DeleteUserPermissionInput({
       id_user_permission: payload?.id_user_permission,
     });

@@ -8,9 +8,8 @@ import {
 
 export class ContractInMemoryRepository
   extends InMemorySearchableRepository<Contract, IdContract, ContractFilter>
-  implements IContractRepository
-{
-  sortableFields: string[] = ['api_name'];
+  implements IContractRepository {
+  sortableFields: string[] = ['modulo_name'];
 
   getEntity(): new (...args: any[]) => Contract {
     return Contract;
@@ -24,15 +23,15 @@ export class ContractInMemoryRepository
       return items;
     }
     return items.filter((i) => {
-      const containsIdApi = filter.id_api && i.id_api === filter.id_api;
-      const containsApiName = filter.api_name && i.api_name === filter.api_name;
-      const containsAtivo = filter.api_active && i.api_active === true;
+      const containsIdModulo = filter.id_modulo && i.id_modulo === filter.id_modulo;
+      const containsModuloName = filter.modulo_name && i.modulo_name === filter.modulo_name;
+      const containsAtivo = filter.modulo_active && i.modulo_active === true;
       const containsDesativado =
-        filter.api_not_active && i.api_active === false;
+        filter.api_not_active && i.modulo_active === false;
       const filterMap = [
-        [filter.id_api, containsIdApi],
-        [filter.api_active, containsAtivo],
-        [filter.api_name, containsApiName],
+        [filter.id_modulo, containsIdModulo],
+        [filter.modulo_active, containsAtivo],
+        [filter.modulo_name, containsModuloName],
         [filter.api_not_active, containsDesativado],
       ].filter((i) => i[0]);
       return filterMap.every((i) => i[1]);
@@ -46,6 +45,6 @@ export class ContractInMemoryRepository
   ) {
     return sort
       ? super.applySort(items, sort, sort_dir)
-      : super.applySort(items, 'api_name', 'desc');
+      : super.applySort(items, 'modulo_name', 'desc');
   }
 }

@@ -14,7 +14,7 @@ import {
 import { EntityValidationError } from '../../../../../shared/domain/validators/validation.error';
 import {
   Contract,
-  IdApi,
+  IdModulo,
 } from '../../../../../contrato/domain/contract.entity';
 import { FindUserPermissionsUseCase } from '../../find/find-user-permissions.use-case';
 
@@ -25,9 +25,9 @@ describe('CreateUserUseCase integration tests', () => {
   let contractRepository: ContractTypeOrmRepository;
   const contract = new Contract({
     id_contract: new IdContract(),
-    id_api: new IdApi(),
-    api_name: 'API_EXAMPLE',
-    api_active: true,
+    id_modulo: new IdModulo(),
+    modulo_name: 'API_EXAMPLE',
+    modulo_active: true,
   });
   beforeEach(async () => {
     const dataSource = setup.dataSource;
@@ -53,7 +53,7 @@ describe('CreateUserUseCase integration tests', () => {
     input.id_contract = new IdContract().id;
     input.id_user = new IdUser().id;
     input.id_permission = '0';
-    input.api_name = 'api1';
+    input.modulo_name = 'api1';
     try {
       await useCase.execute(input);
     } catch (e) {
@@ -71,7 +71,7 @@ describe('CreateUserUseCase integration tests', () => {
     input.id_contract = contract.id_contract.id;
     input.id_user = new IdUser().id;
     input.id_permission = '0';
-    input.api_name = contract.api_name;
+    input.modulo_name = contract.modulo_name;
     await useCase.execute(input);
     const results = await userPermissionRepository.findAll();
     expect(results).toHaveLength(1);
@@ -80,7 +80,7 @@ describe('CreateUserUseCase integration tests', () => {
       id_contract: input.id_contract,
       id_user: input.id_user,
       id_permission: input.id_permission,
-      api_name: input.api_name,
+      modulo_name: input.modulo_name,
     });
   });
   it('Não deve adicionar permissão duplicada para um usuario', async () => {
@@ -89,7 +89,7 @@ describe('CreateUserUseCase integration tests', () => {
     input.id_contract = contract.id_contract.id;
     input.id_user = new IdUser().id;
     input.id_permission = '0';
-    input.api_name = contract.api_name;
+    input.modulo_name = contract.modulo_name;
     await useCase.execute(input);
     await useCase.execute({ ...input, id_permission: '1' });
     console.log(await userPermissionRepository.findAll());

@@ -12,13 +12,12 @@ import { FindUserPermissionsUseCase } from '../find/find-user-permissions.use-ca
 import { CreateUserPermissionInput } from './create-user-permission.input';
 
 export class CreateUserPermissionUseCase
-  implements IUseCase<CreateUserPermissionInput, Output>
-{
+  implements IUseCase<CreateUserPermissionInput, Output> {
   constructor(
     private readonly userPermissionRepository: IUserPermissionRepository,
     private readonly idContractExistsInDatabase: IdContractExistsInDatabaseValidator,
     private readonly findUserPermissionsUseCase: FindUserPermissionsUseCase,
-  ) {}
+  ) { }
 
   async execute(input: CreateUserPermissionInput): Promise<void> {
     const id_user_permission = new IdUserPermission(input.id_user_permission);
@@ -29,13 +28,13 @@ export class CreateUserPermissionUseCase
 
     const id_user = new IdUser(input.id_user);
     const id_permission = input.id_permission;
-    const api_name = input.api_name;
+    const modulo_name = input.modulo_name;
     const aggregate = UserPermission.create({
       id_user_permission,
       id_contract: errorsIdsContracts ? null : ids_contract[0],
       id_user,
       id_permission,
-      api_name,
+      modulo_name,
     });
     const user_permission = await this.findUserPermissionsUseCase.execute({
       id_user: id_user.id,

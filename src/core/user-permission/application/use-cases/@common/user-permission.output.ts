@@ -15,7 +15,7 @@ export class UserPermissionOutputMapper {
       id_contract: entity.id_contract.id,
       id_user: entity.id_user.id,
       id_permission: entity.id_permission,
-      nome_api: entity.api_name,
+      nome_api: entity.modulo_name,
     };
   }
 }

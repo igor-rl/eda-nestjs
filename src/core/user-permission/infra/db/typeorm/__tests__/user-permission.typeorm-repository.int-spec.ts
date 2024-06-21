@@ -31,21 +31,21 @@ describe('UserPermissionTypeORMRepository Integration Tests', () => {
       id_contract: contract2.id_contract,
       id_user: user_a,
       id_permission: '1',
-      api_name: 'api1',
+      modulo_name: 'api1',
     }),
     UserPermission.create({
       id_user_permission: new IdUserPermission(),
       id_contract: contract.id_contract,
       id_user: user_a,
       id_permission: '2',
-      api_name: 'api2',
+      modulo_name: 'api2',
     }),
     UserPermission.create({
       id_user_permission: new IdUserPermission(),
       id_contract: contract.id_contract,
       id_user: user_b,
       id_permission: '1',
-      api_name: 'api2',
+      modulo_name: 'api2',
     }),
   ];
 
@@ -102,7 +102,7 @@ describe('UserPermissionTypeORMRepository Integration Tests', () => {
       id_contract: contract2.id_contract,
       id_user: new IdUser(),
       id_permission: '1',
-      api_name: 'api_name',
+      modulo_name: 'modulo_name',
     });
     await userPermissinRepository.insert(aggregate);
     const createdUser = await userPermissinRepository.findById(

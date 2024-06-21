@@ -12,15 +12,15 @@ type UserPermissionCreatedConsumerProps = {
     id_contract: string;
     id_user: string;
     id_permission: string;
-    id_api: string;
-    api_name: string;
+    id_modulo: string;
+    modulo_name: string;
     is_active: boolean;
   };
 };
 
 @Injectable()
 export class UserPermissionCreatedConsumer {
-  constructor(private moduloRef: ModuleRef) {}
+  constructor(private moduloRef: ModuleRef) { }
   @RabbitSubscribe({
     exchange: 'amq.direct',
     routingKey: 'user-permission.created',
@@ -29,19 +29,19 @@ export class UserPermissionCreatedConsumer {
   })
   async execute({ payload }: UserPermissionCreatedConsumerProps) {
     console.log(payload);
-    if (payload?.api_name !== 'EX_API_EXAMPLE') return;
+    if (payload?.modulo_name !== 'MODULO_EXAMPLE') return;
     const user_permission_input = new CreateUserPermissionInput({
       id_user_permission: payload?.id_user_permission,
       id_contract: payload?.id_contract,
       id_user: payload?.id_user,
       id_permission: payload?.id_permission,
-      api_name: payload?.api_name,
+      modulo_name: payload?.modulo_name,
     });
     const contract_input = new CreateContractInput({
       id_contract: payload.id_contract,
-      id_api: payload.id_api,
-      api_name: payload.api_name,
-      api_active: payload.is_active,
+      id_modulo: payload.id_modulo,
+      modulo_name: payload.modulo_name,
+      modulo_active: payload.is_active,
     });
     try {
       await this.createUserPermissionInputValidade(user_permission_input);
