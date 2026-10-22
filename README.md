@@ -1,82 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# eda-nestjs
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Implementação de referência de **arquitetura orientada a eventos** com NestJS: API REST, mensageria com RabbitMQ, persistência em PostgreSQL e autenticação por JWT emitido pelo Keycloak.
 
-  <p align="center"> A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Projeto de estudo, organizado em camadas (domínio, aplicação e infraestrutura) e com testes unitários, de integração e e2e.
 
-## Description
+## Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **NestJS** e **TypeScript**
+- **RabbitMQ** (`@golevelup/nestjs-rabbitmq`), com fila de mensagens mortas (DLX) e tratamento de erros dos consumidores
+- **PostgreSQL** com **TypeORM** e migrations
+- **Keycloak** (JWT com `passport-jwt`)
+- **Swagger** na raiz da API
+- **Jest** para testes
+- **Docker** e manifestos de **Kubernetes** de exemplo
 
-## Installation
+## Arquitetura
 
-```bash
-$ yarn install
+```
+src/
+  core/                  regras de negócio, sem dependência do framework
+    contrato/            domínio de contratos (entidade, validadores, repositório)
+    user-permission/     domínio de permissões de usuário
+    shared/              blocos reutilizáveis (domain, application, infra)
+  nest-modules/          adaptadores do NestJS
+    auth-module/         autenticação e emissão de token
+    contracts-module/    API de contratos
+    users-permissions-model/
+    event-module/        eventos de aplicação
+    rabbitmq-module/     mensageria, DLX e filtro de erros dos consumidores
+    database-module/     configuração do TypeORM
+    config-module/       configuração validada por ambiente
+  cmd/rabbitmq.ts        ponto de entrada dos consumidores
+  migrations/            migrations do banco
 ```
 
-## Running the app
+Cada domínio em `core/` se divide em `domain`, `application` e `infra`. O NestJS fica na borda, em `nest-modules/`.
+
+## Como rodar
+
+Requer Node.js, Yarn, PostgreSQL e RabbitMQ.
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+yarn install
+cp envs/.env.example envs/.env
+# preencha envs/.env (banco, RabbitMQ e Keycloak)
+yarn migration:run
+yarn start:dev
 ```
 
-## Test
+A API sobe em `http://localhost:3000` (variável `API_PORT`), com a documentação Swagger na raiz.
+
+Os consumidores do RabbitMQ rodam em um processo separado:
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+yarn rabbitmq:consumers:dev
 ```
 
-## Support
+Com Docker, o `docker-compose.yml` sobe a aplicação e o PostgreSQL e lê as variáveis de `envs/.env.prod`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Testes
 
-## Stay in touch
+```bash
+yarn test         # unitários e de integração
+yarn test:e2e     # ponta a ponta
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Configuração e segredos
 
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-<div align="center">
-
-[![GitHub](https://img.shields.io/badge/GitHub-Igor_Lage-blue?style=social&logo=github)](https://github.com/igor-rl) 
-
-![Static Badge](https://img.shields.io/badge/28--05--2024-black)
-
-
-</div>
+O arquivo `envs/.env.example` lista as variáveis necessárias. As chaves e os segredos do Keycloak vêm do ambiente: nunca grave credenciais reais no repositório. Os manifestos em `.k8s/` usam valores de exemplo, e em um cluster real essas credenciais devem vir de Secrets do Kubernetes.
